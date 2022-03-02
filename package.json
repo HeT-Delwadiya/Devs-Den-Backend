@@ -1,0 +1,30 @@
+{
+       "name": "davs_den_backend",
+       "version": "1.0.0",
+       "description": "A backend of Dav's Den project.",
+       "main": "app.js",
+       "scripts": {
+              "test": "echo \"Error: no test specified\" && exit 1",
+              "start": "node app.js"
+       },
+       "author": "HeT",
+       "license": "ISC",
+       "dependencies": {
+              "body-parser": "^1.19.1",
+              "cookie-parser": "^1.4.6",
+              "cors": "^2.8.5",
+              "dotenv": "^10.0.0",
+              "express": "^4.17.2",
+              "express-jwt": "^6.1.0",
+              "express-validator": "^6.14.0",
+              "google-auth-library": "^7.11.0",
+              "jsonwebtoken": "^8.5.1",
+              "lodash": "^4.17.21",
+              "mongoose": "^6.1.5",
+              "request": "^2.88.2",
+              "uuid": "^3.3.3"
+       },
+       "engines": {
+              "node": "14.17.3"
+       }
+}
