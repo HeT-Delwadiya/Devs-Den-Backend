@@ -20,7 +20,10 @@ A platform built with MERN stack, and utilizes third party API's. This platform 
   * Companies can share their achievements
 
 ## Demo
-  * https://devs-den.herokuapp.com/ (Socket server is not running in this demo. so, chat wont be real time. I'm using heroku's free tier. Server goes offline when its idle for 30mins and everytime it restarts, heroku assigns new port, so that why i didn't started socket server for this demo)
+  * This application is deployed on Heroku. Please check it out :smile: https://devs-den.herokuapp.com/ (Socket server is not running in this demo. so, chat wont be real time. I'm using heroku's free tier. Server goes offline when its idle for 30mins and everytime it restarts, heroku assigns new port, so that why i didn't started socket server for this demo).
+
+  *  Demo User :   Email- user@test.com  |  password- testuser123 
+
  
 ## Note 
 
