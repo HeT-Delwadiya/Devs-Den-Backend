@@ -19,6 +19,9 @@ A platform built with MERN stack, and utilizes third party API's. This platform 
   * Companies can find developers on skill bases and communicate with them
   * Companies can share their achievements
 
+## Demo
+  * https://devs-den.herokuapp.com/ (Socket server is not running in this demo. so, chat wont be real time. I'm using heroku's free tier. Server goes offline when its idle for 30mins and everytime it restarts, heroku assigns new port, so that why i didn't started socket server for this demo)
+ 
 ## Note 
 
   * This repo is just a backend of Dev's Den website. You need socket server and frontend also. Check out socket server and frontend of DevsDen projects -> https://github.com/HeT-Delwadiya/.
