@@ -3,7 +3,7 @@
 
 ## Description
 
-A platform built with MERN stack, and utilizes third party API's. This platform enable two main different flows or implementations:
+A platform built with MERN stack, and utilizes third party API's. This platform enable two main different flows or implementations: 
 
 1. Developers creates profiles, find other developers to collaborate with, uses dev tools
 2. Companies create profiles, find and recruite devs for their work.   
