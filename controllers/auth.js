@@ -3,6 +3,7 @@ const Company = require("../models/company");
 const { validationResult, Result } = require('express-validator');
 const jwt = require('jsonwebtoken');
 const expressJwt = require('express-jwt');
+const {sendMail} = require("./mailer");
 
 exports.signup = (req,res) => {
 
@@ -17,11 +18,14 @@ exports.signup = (req,res) => {
                      if(err)
                             return res.json({"Message":err});
                      else {
+                            const text = `Open this link to verify your account: ${process.env.FRONTEND_URL}company/verify/${user._id}/${user.token}`
+                            sendMail(user.email, "Email verification for Dev's Den", text)
+
                             const authtoken = jwt.sign({ _id: user._id }, process.env.SECRET);
                             res.cookie("token", authtoken, { expiresIn: 60 * 60 * 9999});
                             
-                            const {_id, name, email, role, type, avatar} = user;
-                            return res.json({authtoken,user: {_id, name, email, role, type, avatar}});
+                            const {_id, name, email, role, type, avatar, isVerified} = user;
+                            return res.json({authtoken,user: {_id, name, email, role, type, avatar, isVerified}});
                      }
                      
               });
@@ -31,11 +35,14 @@ exports.signup = (req,res) => {
                      if(err)
                             return res.json({"Message":err});
                      else {
+                            const text = `Open this link to verify your account: ${process.env.FRONTEND_URL}user/verify/${user._id}/${user.token}`
+                            sendMail(user.email, "Email verification for Dev's Den", text)
+
                             const authtoken = jwt.sign({ _id: user._id }, process.env.SECRET);
                             res.cookie("token", authtoken, { expiresIn: 60 * 60 * 9999});
                             
-                            const {_id, name, email, role, type, avatar} = user;
-                            return res.json({authtoken,user: {_id, name, email, role, type, avatar}});
+                            const {_id, name, email, role, type, avatar, isVerified} = user;
+                            return res.json({authtoken,user: {_id, name, email, role, type, avatar, isVerified}});
                      }
               });
        }
@@ -60,11 +67,17 @@ exports.signin = (req,res) => {
                             if(!user.authenticate(password)) {
                                    return res.status(422).json({"Message":"Email and password does not match!"})
                             }
+
+                            if(!user.isVerified) {
+                                   const text = `Open this link to verify your account: ${process.env.FRONTEND_URL}company/verify/${user._id}/${user.token}`
+                                   sendMail(user.email, "Email verification for Dev's Den", text)
+                                   return res.status(400).json({"Message": "Your email is not verified. Please check verification email to verify your account!"})
+                            }
                             const authtoken = jwt.sign({ _id: user._id }, process.env.SECRET);
                             res.cookie("token", authtoken, { expiresIn: 60 * 60 * 9999});
               
-                            const {_id, name, email, role, type, avatar} = user;
-                            return res.json({authtoken,user: {_id, name, email, role, type, avatar}});
+                            const {_id, name, email, role, type, avatar, isVerified} = user;
+                            return res.json({authtoken,user: {_id, name, email, role, type, avatar, isVerified}});
                      }
               }) 
        } else {
@@ -77,11 +90,16 @@ exports.signin = (req,res) => {
                             if(!user.authenticate(password)) {
                                    return res.status(422).json({"Message":"Email and password does not match!"})
                             }
+                            if(!user.isVerified) {
+                                   const text = `Open this link to verify your account: ${process.env.FRONTEND_URL}user/verify/${user._id}/${user.token}`
+                                   sendMail(user.email, "Email verification for Dev's Den", text)
+                                   return res.status(400).json({"Message": "Your email is not verified. Please check verification email to verify your account!"})
+                            }
                             const authtoken = jwt.sign({ _id: user._id }, process.env.SECRET);
                             res.cookie("token", authtoken, { expiresIn: 60 * 60 * 9999});
 
-                            const {_id, name, email, role, type, avatar} = user;
-                            return res.json({authtoken,user: {_id, name, email, role, type, avatar}});
+                            const {_id, name, email, role, type, avatar, isVerified} = user;
+                            return res.json({authtoken,user: {_id, name, email, role, type, avatar, isVerified}});
                      }
               })
        }

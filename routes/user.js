@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const {getUserById, getUser, getAllUsers, getUsersBySkill, getUsersByName, getFollowers, getFollowings, getUserByEmail, updateUser, followUser, deleteUser, unfollowUser} = require("../controllers/user");
+const {getUserById, getUser, getAllUsers, getUsersBySkill, getUsersByName, verifyUser, getFollowers, getFollowings, getUserByEmail, updateUser, followUser, deleteUser, unfollowUser} = require("../controllers/user");
 const {isSignedIn, isAuthenticated} = require("../controllers/auth");
 
 router.param("userId", getUserById);
@@ -15,6 +15,8 @@ router.get("/user/:userId/followings", isSignedIn, getFollowings);
 router.post("/user/email/check", getUserByEmail);
 router.post("/user/search/skill", getUsersBySkill);
 router.post("/user/search/name", getUsersByName);
+
+router.get("/user/verify/:userId/:token", verifyUser);
 
 //update
 router.put("/user/:userId/update", isSignedIn, isAuthenticated, updateUser);

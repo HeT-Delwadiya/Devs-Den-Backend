@@ -89,6 +89,13 @@ let userSchema = new mongoose.Schema({
        role: {
               type: Number,
               default: 0
+       },
+       isVerified: {
+              type: Boolean,
+              default: false
+       },
+       token: {
+              type: String
        }
 },{ timestamps: true });
 

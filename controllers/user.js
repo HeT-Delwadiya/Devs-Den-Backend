@@ -4,6 +4,8 @@ const Group = require("../models/group");
 const Post = require("../models/post");
 const Message = require("../models/message");
 const _ = require('lodash');
+const jwt = require('jsonwebtoken');
+const expressJwt = require('express-jwt');
 
 exports.getUserById = (req, res, next, id) => {
        User.findById(id)
@@ -331,3 +333,26 @@ exports.unfollowUser = (req, res) => {
        }
 }
 
+exports.verifyUser = (req, res) => {
+       if(!req.profile.isVerified) {
+              if(req.params.token==req.profile.token) {
+                     User.findByIdAndUpdate(
+                            {_id: req.profile._id},
+                            {isVerified: true},
+                            {new: true},
+                            (err, user) => {
+                            if(err)
+                                   return res.status(400).json({error:"Failed to add user to your following list!"});
+                            const authtoken = jwt.sign({ _id: user._id }, process.env.SECRET);
+                            res.cookie("token", authtoken, { expiresIn: 60 * 60 * 9999});
+                                   
+                            const {_id, name, email, role, type, avatar, isVerified} = user;
+                            return res.json({authtoken,user: {_id, name, email, role, type, avatar, isVerified}});
+                     })
+              } else {
+                     return res.status(400).json({error:"Invalid verification link!"});
+              }
+       } else {
+              return res.status(400).json({error:"This account is already verified! You can login to your account now."});
+       }
+}

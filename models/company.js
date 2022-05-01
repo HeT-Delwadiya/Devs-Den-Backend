@@ -70,6 +70,13 @@ let companySchema = new mongoose.Schema({
        role: {
               type: Number,
               default: 1
+       },
+       isVerified: {
+              type: Boolean,
+              default: false
+       },
+       token: {
+              type: String
        }
 },{ timestamps: true });
 

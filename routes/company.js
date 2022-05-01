@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const {getCompanyById, getCompany, getAllCompanies, getCompanyBySpeciality, getCompanyByName, getCompanyFollowers, updateCompany, deleteCompany} = require("../controllers/company");
+const {getCompanyById, getCompany, getAllCompanies, getCompanyBySpeciality, getCompanyByName, verifyCompany, getCompanyFollowers, updateCompany, deleteCompany} = require("../controllers/company");
 const {isSignedIn, isAuthenticated} = require("../controllers/auth");
 
 router.param("companyId", getCompanyById);
@@ -13,6 +13,8 @@ router.get("/company/:companyId/followers", isSignedIn, getCompanyFollowers);
 
 router.post("/company/search/speciality", getCompanyBySpeciality);
 router.post("/company/search/name", getCompanyByName);
+
+router.get("/company/verify/:companyId/:token", verifyCompany);
 
 //update
 router.put("/company/:companyId/update", isSignedIn, isAuthenticated, updateCompany);

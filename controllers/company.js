@@ -1,5 +1,7 @@
 const Company = require("../models/company");
 const Post = require("../models/post");
+const jwt = require('jsonwebtoken');
+const expressJwt = require('express-jwt');
 
 exports.getCompanyById = (req, res, next, id) => {
        Company.findById(id)
@@ -96,4 +98,28 @@ exports.deleteCompany = (req, res) => {
                      return res.status(400).json({error:"Failed to delete the account. "+error});
               res.json({message:"Successfully deleted "+company.name+"'s account."});
        });
+}
+
+exports.verifyCompany = (req, res) => {
+       if(!req.profile.isVerified) {
+              if(req.params.token==req.profile.token) {
+                     Company.findByIdAndUpdate(
+                            {_id: req.profile._id},
+                            {isVerified: true},
+                            {new: true},
+                            (err, company) => {
+                            if(err)
+                                   return res.status(400).json({error:"Failed to add user to your following list!"});
+                            const authtoken = jwt.sign({ _id: company._id }, process.env.SECRET);
+                            res.cookie("token", authtoken, { expiresIn: 60 * 60 * 9999});
+                                   
+                            const {_id, name, email, role, type, avatar, isVerified} = company;
+                            return res.json({authtoken,user: {_id, name, email, role, type, avatar, isVerified}});
+                     })
+              } else {
+                     return res.status(400).json({error:"Invalid verification link!"});
+              }
+       } else {
+              return res.status(400).json({error:"This account is already verified!"});
+       }
 }
