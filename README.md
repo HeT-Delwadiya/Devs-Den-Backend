@@ -18,7 +18,7 @@ A platform built with MERN stack, and utilizes third party API's. This platform 
   * Companies can create their professional profiles
   * Companies can find developers on skill bases and communicate with them
   * Companies can share their achievements
-
+ 
 ## Demo
  
   * This app is deployed on Heroku. Please check it out :smile: https://devs-den.herokuapp.com/ (Socket server is not running in this demo. so, chat wont be real time. I'm using heroku's free tier. Server goes offline when its idle for 30mins and everytime it restarts, heroku assigns new port, so that why i didn't started socket server for this demo).
