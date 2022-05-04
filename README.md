@@ -20,10 +20,10 @@ A platform built with MERN stack, and utilizes third party API's. This platform 
   * Companies can share their achievements
 
 ## Demo
- [![Netlify Status](https://api.netlify.com/api/v1/badges/758acdb1-71bb-4a97-85d2-8eb30220a6a5/deploy-status)](https://app.netlify.com/sites/devsden/deploys)
-  * This app's backend is deployed on Heroku. Please check it out :smile: https://devsden.netlify.app/ (Socket server is not running in this demo. so, chat wont be real time. I'm using heroku's free tier. Server goes offline when its idle for 30mins and everytime it restarts, heroku assigns new port, so that why i didn't started socket server for this demo).
+ 
+  * This app is deployed on Heroku. Please check it out :smile: https://devs-den.herokuapp.com/ (Socket server is not running in this demo. so, chat wont be real time. I'm using heroku's free tier. Server goes offline when its idle for 30mins and everytime it restarts, heroku assigns new port, so that why i didn't started socket server for this demo).
 
-  *  Demo User :   Email- user@test.com  |  password- testuser123    (Not responsive for mobile)
+  *  Demo User :   Email- user@test.com  |  password- testuser123   (Not responsive for mobile)
 
  
 ## Note 
